@@ -1,0 +1,6 @@
+# Ignorar archivos y carpetas temporales fuera del control de código
+AppData/
+**/AppData/**
+**/Local/**
+**/Temp/**
+*.tmp
