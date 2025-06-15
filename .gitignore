@@ -21,6 +21,11 @@ expo-env.d.ts
 # Android local properties
 android/local.properties
 
+# Gradle
+android/.gradle/
+android/build/
+android/app/build/
+
 # Metro
 .metro-health-check*
 

@@ -4,3 +4,13 @@ AppData/
 **/Local/**
 **/Temp/**
 *.tmp
+
+# Ignorar configuraciones locales de Android
+android/local.properties
+
+# Ignorar archivos temporales de Gradle
+android/.gradle/
+android/build/
+android/app/build/
+**/.gradle/
+**/build/
