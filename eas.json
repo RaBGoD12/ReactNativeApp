@@ -14,7 +14,8 @@
     "production": {
       "autoIncrement": true,
       "env": {
-        "ANDROID_HOME": "/home/expo/Android/Sdk"
+        "EXPO_PUBLIC_SUPABASE_URL": "${process.env.SUPABASE_URL}",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "${process.env.SUPABASE_ANON_KEY}"
       }
     }
   },
