@@ -6,7 +6,6 @@ class LocalCableService {
   private storageKey = 'appcables_registros';
   private inventarioKey = 'appcables_inventario';
   private proyectosKey = 'appcables_proyectos_historial';
-
   // Crear un nuevo registro de cable (almacenado localmente)
   async crearRegistro(registro: Omit<RegistroCable, 'id' | 'created_at' | 'user_id'>): Promise<RegistroCable | null> {
     try {
@@ -18,24 +17,36 @@ class LocalCableService {
         ...registro,
       };
 
+      // Obtener registros existentes y actualizar
       const registrosExistentes = await this.obtenerRegistros();
       const registrosActualizados = [nuevoRegistro, ...registrosExistentes];
       
+      // Guardar los registros en AsyncStorage
       await AsyncStorage.setItem(this.storageKey, JSON.stringify(registrosActualizados));
 
       // Actualizar inventario restante
-      const inv = await this.obtenerInventario();
-      const nuevaCantidadActual = Math.max(0, inv.cantidad_actual - registro.metraje);
-      await AsyncStorage.setItem(
-        this.inventarioKey,
-        JSON.stringify({ cantidad_inicial: inv.cantidad_inicial, cantidad_actual: nuevaCantidadActual })
-      );
+      try {
+        const inv = await this.obtenerInventario();
+        const nuevaCantidadActual = Math.max(0, inv.cantidad_actual - registro.metraje);
+        await AsyncStorage.setItem(
+          this.inventarioKey,
+          JSON.stringify({ cantidad_inicial: inv.cantidad_inicial, cantidad_actual: nuevaCantidadActual })
+        );
+      } catch (inventoryError) {
+        console.error('Error al actualizar inventario:', inventoryError);
+        // Continuar a pesar del error en el inventario
+      }
 
-      // Enviar notificación de éxito
-      await NotificationService.sendImmediateNotification(
-        '✅ Registro guardado',
-        `Se registraron ${registro.metraje} ${registro.unidad_medida} de cable`
-      );
+      // Enviar notificación de éxito (con manejo de error seguro)
+      try {
+        await NotificationService.sendImmediateNotification(
+          '✅ Registro guardado',
+          `Se registraron ${registro.metraje} ${registro.unidad_medida} de cable`
+        );
+      } catch (notificationError) {
+        console.error('Error al enviar notificación:', notificationError);
+        // No dejar que un error en las notificaciones haga fallar la función
+      }
 
       return nuevoRegistro;
     } catch (error) {

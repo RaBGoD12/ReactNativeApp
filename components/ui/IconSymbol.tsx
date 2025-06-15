@@ -13,7 +13,8 @@ type SupportedSymbolNames =
   | 'chevron.right'
   | 'tray.full.fill'
   | 'list.bullet'
-  | 'chart.bar.fill';
+  | 'chart.bar.fill'
+  | 'wrench';
 
 type IconMapping = Record<SupportedSymbolNames, ComponentProps<typeof MaterialIcons>['name']>;
 type IconSymbolName = keyof typeof MAPPING;
@@ -31,6 +32,7 @@ const MAPPING = {
   'tray.full.fill': 'storage',
   'list.bullet': 'list',
   'chart.bar.fill': 'assessment',
+  'wrench': 'build'
 } as IconMapping;
 
 /**

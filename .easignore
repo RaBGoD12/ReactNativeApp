@@ -8,6 +8,10 @@ AppData/
 # Ignorar configuraciones locales de Android
 android/local.properties
 
+# Ignorar carpetas nativas para EAS Build
+/android
+/ios
+
 # Ignorar archivos temporales de Gradle
 android/.gradle/
 android/build/
