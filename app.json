@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AppCables",
-    "slug": "AppCables",
+    "name": "Mi App Recordatorios",
+    "slug": "app-recordatorios-andreebermudez-2024",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -53,7 +53,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "26503fff-6be7-4ce4-a070-09c7b63ff96d"
+        "projectId": "80589759-1c63-4e9d-af3f-20e5ff5c64da"
       }
     }
   }
